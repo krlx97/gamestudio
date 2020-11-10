@@ -1,0 +1,211 @@
+<h3 mat-dialog-title>
+  Izmeni proizvod
+</h3>
+
+<mat-dialog-content>
+
+  <form id="editProductForm" [formGroup]="form" (ngSubmit)="submit()">
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        Naziv
+      </mat-label>
+      <input matInput type="text" required formControlName="name">
+      <mat-error *ngIf="!name.value && name.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        Cena
+      </mat-label>
+      <input matInput type="number" required min="1" formControlName="price">
+      <mat-error *ngIf="!price.value && price.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+      <mat-error *ngIf="price.value && price.invalid">
+        Vrednost ne sme biti manja od 1
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        Popust
+      </mat-label>
+      <input matInput type="number" required min="0" formControlName="discount">
+      <mat-error *ngIf="!discount.value && discount.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+      <mat-error *ngIf="discount.value && discount.invalid">
+        Vrednost ne sme biti manja od 0
+      </mat-error>
+    </mat-form-field>
+
+    <div class="mat-checkbox-spacer">
+      <mat-checkbox formControlName="isInStock">
+        Na stanju
+      </mat-checkbox>
+    </div>
+
+    <mat-accordion>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Opis
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div formGroupName="info">
+          <mat-form-field appearance="standard">
+            <mat-label>
+              Kraći
+            </mat-label>
+            <textarea
+              matInput
+              type="text"
+              maxlength="150"
+              formControlName="short">
+            </textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard">
+            <mat-label>
+              Duži
+            </mat-label>
+            <textarea
+              matInput
+              type="text"
+              maxLength="600"
+              formControlName="long">
+            </textarea>
+          </mat-form-field>
+
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Polja tabele
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div formArrayName="tableFields">
+          <div
+            *ngFor="let tableField of tableFields.controls; index as i"
+            [formGroupName]="i">
+
+            <mat-form-field appearance="standard">
+              <mat-label>
+                Levo {{i + 1}}
+              </mat-label>
+              <input matInput type="text" required formControlName="left">
+              <mat-error *ngIf="!left(i).value && left(i).touched">
+                Polje ne sme biti prazno
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard">
+              <mat-label>
+                Desno {{i + 1}}
+              </mat-label>
+              <input matInput type="text" required formControlName="right">
+              <mat-error *ngIf="!right(i).value && right(i).touched">
+                Polje ne sme biti prazno
+              </mat-error>
+            </mat-form-field>
+
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="removeTableField(i)">
+              Ukloni polje
+            </button>
+
+          </div>
+        </div>
+        <mat-action-row>
+          <button mat-stroked-button type="button" (click)="addTableField()">
+            Dodaj polje
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Medija
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div formGroupName="media">
+
+          <mat-form-field appearance="standard">
+            <mat-label>
+              Glavna Slika
+            </mat-label>
+            <input matInput type="text" required formControlName="heroImage">
+            <mat-error *ngIf="!heroImage.value && heroImage.touched">
+              Polje ne sme biti prazno
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard">
+            <mat-label>
+              Youtube URL
+            </mat-label>
+            <input matInput type="text" formControlName="youtubeUrl">
+          </mat-form-field>
+
+          <div formArrayName="galleryImages">
+            <div
+              *ngFor="let galleryImage of galleryImages.controls; index as i"
+              [formGroupName]="i">
+
+              <mat-form-field appearance="standard">
+                <mat-label>
+                  Slika {{i + 1}}
+                </mat-label>
+                <input matInput type="text" required formControlName="src">
+                <mat-icon
+                  matSuffix
+                  fontSet="fa"
+                  fontIcon="fa-trash"
+                  aria-label="Ukloni sliku"
+                  (click)="removeGalleryImage(i)"></mat-icon>
+                <mat-error *ngIf="!src(i).value && src(i).touched">
+                  Polje ne sme biti prazno
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+          </div>
+
+        </div>
+
+        <mat-action-row>
+          <button mat-stroked-button type="button" (click)="addGalleryImage()">
+            <i class="fas fa-plus fa-fw"></i> Dodaj sliku
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>
+    Izlaz
+  </button>
+  <button
+    mat-button
+    color="accent"
+    type="submit"
+    form="editProductForm"
+    [disabled]="form.invalid">
+    Izmeni
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,52 @@
+<mat-card>
+
+  <a [routerLink]="product._id" [title]="product.name">
+    <img mat-card-image [src]="product.media.heroImage" [alt]="product.name">
+  </a>
+
+  <mat-card-content>
+    <p>
+      <a [routerLink]="product._id">{{product.name}}</a>
+    </p>
+    <p *ngIf="!product.discount; else discounted">
+      {{product.price | number}} RSD
+    </p>
+    <ng-template #discounted>
+      <p>
+        <i><s>{{product.price | number}} RSD</s></i><br>
+        <strong>{{discount | number}} RSD (-{{percent}}%)</strong>
+      </p>
+    </ng-template>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      mat-icon-button
+      color="accent"
+      aria-label="Dodaj u korpu"
+      matTooltip="Dodaj u korpu"
+      (click)="addToCart()">
+      <i class="fas fa-cart-plus fa-fw"></i>
+    </button>
+
+    <button
+      *ngIf="userService.isAdmin"
+      mat-mini-fab
+      color="primary"
+      aria-label="Admin | Proizvod"
+      matTooltip="Admin | Proizvod"
+      [matMenuTriggerFor]="manageProductMenu">
+      <i class="fas fa-user-cog fa-fw"></i>
+    </button>
+  </mat-card-actions>
+
+</mat-card>
+
+<mat-menu #manageProductMenu="matMenu">
+  <button mat-menu-item (click)="removeProduct()">
+    <i class="fas fa-trash fa-fw"></i> Ukloni proizvod
+  </button>
+  <button mat-menu-item (click)="editProduct()">
+    <i class="fas fa-edit fa-fw"></i> Izmeni proizvod
+  </button>
+</mat-menu>

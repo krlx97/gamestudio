@@ -1,0 +1,33 @@
+.wrapper {
+  width: 100%;
+  padding: var(--spacer-lg) 0 var(--spacer-lg) var(--spacer-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper-not-loaded {
+  padding: var(--spacer-lg)
+}
+
+img {
+  height: 256px;
+  width: 256px;
+  cursor: pointer;
+}
+section {
+  margin-right: var(--spacer-lg);
+}
+.info {
+  flex-basis: 320px;
+}
+.table {
+  flex-basis: 100%;
+}
+table {width: 100%;}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .wrapper {
+    flex-direction: row;
+  }
+}

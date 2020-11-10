@@ -1,0 +1,30 @@
+.toolbar {
+  padding: var(--spacer-sm) var(--spacer-md);
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(48, 48, 48);
+}
+
+.loading {
+  width: 100%;
+  padding: var(--spacer-sm) var(--spacer-md);
+}
+
+.products {
+  padding: var(--spacer-sm) 0 0 var(--spacer-md);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+app-product {
+  flex-basis: calc(50% - var(--spacer-md));
+  margin: 0 var(--spacer-md) var(--spacer-md) 0;
+  overflow: hidden;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  app-product {
+    flex-basis: auto;
+  }
+}

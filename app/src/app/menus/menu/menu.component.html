@@ -1,0 +1,31 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header [style.backgroundColor]="menu.color">
+    <mat-panel-title>
+      <i [ngClass]="getMenuIcon()"></i>
+      <span class="menu-name"> {{menu.name}}</span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-nav-list *ngFor="let category of menu.categories">
+    <h3 matSubheader>{{category.name}}</h3>
+    <a
+      *ngFor="let collection of category.collections"
+      mat-list-item
+      [routerLink]="getLinkUrl(collection.name)"
+      [state]="getLinkState(collection.name)"
+      (click)="toggleSidenav()">{{collection.name}}</a>
+  </mat-nav-list>
+  <mat-action-row *ngIf="userService.isAdmin">
+    <button mat-button [matMenuTriggerFor]="manageMenuMenu">
+      <i class="fas fa-user-cog fa-fw"></i> Admin
+    </button>
+  </mat-action-row>
+</mat-expansion-panel>
+<!-- Admin Menu -->
+<mat-menu #manageMenuMenu="matMenu">
+  <button mat-menu-item (click)="removeMenu()">
+    <i class="fas fa-trash fa-fw"></i> Ukloni meni
+  </button>
+  <button mat-menu-item (click)="editMenu()">
+    <i class="fas fa-edit fa-fw"></i> Izmeni meni
+  </button>
+</mat-menu>

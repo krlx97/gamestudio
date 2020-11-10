@@ -1,0 +1,30 @@
+<div class="banner-wrapper">
+  <div class="banner-imgs">
+    <img
+     *ngFor="let banner of banners"
+     [class.visible]="banner.active"
+     [src]="banner.src">
+  </div>
+  <div class="banner-btns">
+    <button
+      *ngFor="let banner of banners; index as i"
+      mat-icon-button
+      (click)="onViewImage(i)">
+      <i [class]="banner.active ? 'fas fa-circle fa-2x fa-fw' : 'far fa-circle fa-2x fa-fw'"></i>
+    </button>
+  </div>
+  <div class="banner-actions">
+    <button mat-stroked-button>
+      <i class="fas fa-angle-down fa-fw"></i> Showcase
+    </button>
+    <button
+      *ngIf="userService.isAdmin"
+      mat-raised-button
+      color="primary"
+      (click)="onEditBanners()">
+      <i class="fas fa-edit fa-fw"></i> Izmeni banere
+    </button>
+  </div>
+  <mat-progress-bar mode="determinate" [value]="progress">
+  </mat-progress-bar>
+</div>

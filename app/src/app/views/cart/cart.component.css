@@ -1,0 +1,24 @@
+.toolbar {
+  padding: var(--spacer-sm) var(--spacer-md);
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(48, 48, 48);
+}
+
+.products {
+  padding: var(--spacer-sm) var(--spacer-sm) 0 var(--spacer-md);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+app-cart-product {
+  flex-basis: calc(50% - var(--spacer-sm));
+  margin: 0 var(--spacer-sm) var(--spacer-sm) 0;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  app-cart-product {
+    flex-basis: auto;
+  }
+}

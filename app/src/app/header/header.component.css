@@ -1,0 +1,46 @@
+header {
+  width: 100%;
+  padding: var(--spacer-sm) var(--spacer-md);
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(33, 33, 33);
+}
+
+.logo, .buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  height: 32px;
+}
+
+.buttons {
+  padding-left: var(--spacer-sm);
+}
+button {
+  margin-right: var(--spacer-sm);
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  header {
+    padding: 0 var(--spacer-md);
+  }
+  /* Same width as menu width to center it */
+  .logo {
+    width: calc(320px - var(--spacer-md));
+  }
+
+  .buttons {
+    padding-left: 0;
+  }
+  button {
+    margin-right: 0;
+  }
+
+  img {
+    height: 64px;
+  }
+}

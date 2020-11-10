@@ -1,0 +1,52 @@
+<h3 mat-dialog-title>
+  Izmeni banere
+</h3>
+
+<mat-dialog-content>
+
+  <form id="editBannersForm" [formGroup]="form" (ngSubmit)="submit()">
+    <div formArrayName="banners">
+      <div
+        *ngFor="let banner of banners.controls; index as i"
+        [formGroupName]="i">
+
+        <mat-form-field appearance="standard">
+          <mat-label>
+            Baner {{i + 1}}
+          </mat-label>
+          <input matInput type="text" required formControlName="src">
+          <mat-icon
+            matSuffix
+            fontSet="fa"
+            fontIcon="fa-trash"
+            aria-label="Ukloni baner"
+            matTooltip="Ukloni baner"
+            (click)="removeBanner(i)">
+          </mat-icon>
+          <mat-error *ngIf="src(i).invalid">
+            Polje ne sme biti prazno
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+    </div>
+    <button mat-stroked-button type="button" (click)="addBanner()">
+      Dodaj baner
+    </button>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>
+    Izlaz
+  </button>
+  <button
+    mat-button
+    color="accent"
+    type="submit"
+    form="editBannersForm"
+    [disabled]="form.invalid">
+    Izmeni
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,76 @@
+<header>
+  <div class="logo">
+
+    <button
+      *ngIf="deviceService.isMobile"
+      mat-icon-button
+      aria-label="Meni"
+      matTooltip="Meni"
+      (click)="appSidenav.toggle()">
+      <i [ngClass]="menuIcon"></i>
+    </button>
+
+    <a routerLink="/home" title="Početna">
+      <img src="assets/images/logo.png" alt="Logo | Početna">
+    </a>
+
+  </div>
+
+  <div *ngIf="deviceService.isMobile; else desktopBtns" class="buttons">
+    <button
+      mat-icon-button
+      color="primary"
+      [attr.aria-label]="userTitle"
+      [matTooltip]="userTitle"
+      (click)="userAction()">
+      <i [ngClass]="userIcon"></i>
+    </button>
+
+    <button
+      mat-icon-button
+      color="accent"
+      [attr.aria-label]="cartTitle"
+      [matTooltip]="cartTitle"
+      (click)="cartAction()">
+      <i [ngClass]="cartIcon"></i>
+    </button>
+
+    <button
+      mat-icon-button
+      aria-label="Pretraga"
+      matTooltip="Pretraga"
+      (click)="search()">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <button
+      mat-icon-button
+      aria-label="Info"
+      matTooltip="Info"
+      (click)="info()">
+      <i class="fas fa-info fa-fw"></i>
+    </button>
+  </div>
+
+  <ng-template #desktopBtns>
+    <div class="buttons">
+
+      <button mat-button color="primary" (click)="userAction()">
+        <i [ngClass]="userIcon"></i> {{userTitle}}
+      </button>
+
+      <button mat-button color="accent" (click)="cartAction()">
+        <i [ngClass]="cartIcon"></i> {{cartTitle}}
+      </button>
+
+      <button mat-button (click)="search()">
+        <i class="fas fa-search fa-fw"></i> Pretraga
+      </button>
+
+      <button mat-button (click)="info()">
+        <i class="fas fa-info fa-fw"></i> Info
+      </button>
+
+    </div>
+  </ng-template>
+</header>

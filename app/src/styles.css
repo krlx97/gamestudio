@@ -1,0 +1,52 @@
+:root {
+  --blue: 33, 150, 243;
+  --green: 76, 175, 80;
+  --red: 244, 67, 54;
+  --orange: 255, 152, 0;
+
+  --spacer-sm: 0.5em;
+  --spacer-md: 1em;
+  --spacer-lg: 2em;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  /* font: normal normal normal 16px/1.3 'Titillium Web', sans-serif; */
+  font-family: 'Titillium Web', sans-serif;
+}
+
+a {
+  color: unset;
+  /* text-decoration: none; */
+}
+
+/* a:hover {
+  text-decoration: underline;
+} */
+
+button {
+  font-variant: small-caps;
+}
+
+*::-webkit-scrollbar {
+  width: 0.25rem;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 255);
+}
+
+/* .remove-padding .mat-dialog-container {
+  padding: 0;
+} */
+
+.remove-transition .mat-progress-bar-fill {
+  transition: none;
+}

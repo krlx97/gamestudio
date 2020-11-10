@@ -1,0 +1,20 @@
+<h3 mat-dialog-title>
+  Potvrdite radnju
+</h3>
+
+<mat-dialog-content>
+  <p>
+    Jeste li sigurni da želite da uklonite ovaj meni?<br>
+    Ako uklonite ovaj meni, uklonićete i sve kolekcije!<br>
+    Ova radnja je nepovratna!
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>
+    Izlaz
+  </button>
+  <button mat-raised-button color="warn" (click)="confirm()">
+    Ukloni
+  </button>
+</mat-dialog-actions>

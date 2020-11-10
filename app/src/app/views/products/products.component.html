@@ -1,0 +1,66 @@
+<div class="toolbar">
+
+  <div>
+    <button
+      mat-icon-button
+      aria-label="Rasporedi"
+      matTooltip="Rasporedi"
+      [matMenuTriggerFor]="productSortMenu">
+      <i [ngClass]="productService.sortIcon"></i>
+    </button>
+
+    {{collection}}
+  </div>
+
+  <button
+    *ngIf="userService.isAdmin"
+    mat-mini-fab
+    color="primary"
+    aria-label="Admin | Kolekcija"
+    matTooltip="Admin | Kolekcija"
+    [matMenuTriggerFor]="adminMenu">
+    <i class="fas fa-user-cog fa-fw"></i>
+  </button>
+
+</div>
+
+<div *ngIf="isLoaded; else loading" class="products">
+  <app-product
+    *ngFor="let product of productService.products"
+    [product]="product"
+    (addToCartEvt)="onAddToCart($event)"
+    (editProductEvt)="onEditProduct($event)"
+    (removeProductEvt)="onRemoveProduct($event)">
+  </app-product>
+</div>
+
+<ng-template #loading>
+  <div class="loading">
+    <mat-progress-bar mode="indeterminate">
+    </mat-progress-bar>
+  </div>
+</ng-template>
+
+<mat-menu #productSortMenu="matMenu">
+  <button mat-menu-item (click)="productService.sortIncreasing()">
+    <i class="fas fa-sort-amount-up fa-fw"></i> Po ceni rastuće
+  </button>
+  <button mat-menu-item (click)="productService.sortDecreasing()">
+    <i class="fas fa-sort-amount-down fa-fw"></i> Po ceni opadajuće
+  </button>
+  <button mat-menu-item (click)="productService.sortAZ()">
+    <i class="fas fa-sort-alpha-down fa-fw"></i> Po nazivu proizvoda A-Z
+  </button>
+  <button mat-menu-item (click)="productService.sortZA()">
+    <i class="fas fa-sort-alpha-up fa-fw"></i> Po nazivu proizvoda Z-A
+  </button>
+</mat-menu>
+
+<mat-menu #adminMenu="matMenu">
+  <button mat-menu-item (click)="addProduct()">
+    <i class="fas fa-plus fa-fw"></i> Dodaj proizvod
+  </button>
+  <button mat-menu-item (click)="syncProducts()">
+    <i class="fas fa-sync fa-fw"></i> Sinhronizacija
+  </button>
+</mat-menu>

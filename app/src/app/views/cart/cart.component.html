@@ -1,0 +1,41 @@
+<div class="toolbar">
+  <p>
+    Korpa
+    <span *ngIf="cartProductService.cartProducts.length">
+      - {{cartProductService.totalPrice | number}} RSD
+    </span>
+  </p>
+  <section class="toolbar-actions">
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="!cartProductService.cartProducts.length || isLoading"
+      (click)="checkout()">
+      <span *ngIf="!isLoading; else loading">Naručite</span>
+    </button>
+  </section>
+</div>
+
+<div
+  *ngIf="cartProductService.cartProducts.length; else emptyCart"
+  class="products">
+  <app-cart-product
+    *ngFor="let cartProduct of cartProductService.cartProducts"
+    [cartProduct]="cartProduct"
+    [isLoading]="isLoading"
+    (decreaseQtyEvt)="onDecreaseQty($event)"
+    (increaseQtyEvt)="onIncreaseQty($event)"
+    (removeFromCartEvt)="onRemoveFromCart($event)">
+  </app-cart-product>
+</div>
+
+<ng-template #emptyCart>
+  <p class="products">
+    Vaša korpa je prazna...<br>
+    Dodajte jedan proizvod da bi ste nastavili sa kupovinom
+  </p>
+</ng-template>
+
+<ng-template #loading>
+  <i class="fas fa-spinner fa-spin fa-fw"></i>
+</ng-template>

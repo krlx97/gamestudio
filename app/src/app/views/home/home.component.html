@@ -1,0 +1,16 @@
+<app-banner>
+</app-banner>
+
+<mat-tab-group>
+  <mat-tab label="Akcija">
+    <div class="products">
+      <app-product
+        *ngFor="let discountedProduct of discountedProducts"
+        [product]="discountedProduct"
+        (addToCartEvt)="onAddToCart($event)"
+        (editProductEvt)="onEditProduct($event)"
+        (removeProductEvt)="onRemoveProduct($event)">
+      </app-product>
+    </div>
+  </mat-tab>
+</mat-tab-group>

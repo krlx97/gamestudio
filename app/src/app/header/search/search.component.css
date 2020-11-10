@@ -1,0 +1,10 @@
+mat-form-field {
+  width: 100%;
+}
+
+img {
+  height: 32px;
+  width: 32px;
+  margin-right: var(--spacer-sm);
+  vertical-align: middle;
+}

@@ -1,0 +1,53 @@
+<div class="wrapper" *ngIf="product; else notLoaded">
+
+  <section class="info">
+    <img
+      [src]="product.media.heroImage"
+      (click)="videoDialog()"
+      matTooltip="Pogledaj galeriju"
+      aria-label="Pogledaj galeriju"><br>
+    <p>
+      <i class="f-green fas fa-circle fa-fw"></i> {{product.name}}<br>
+      <i>{{product.collection}}</i><br>
+    </p>
+    <p>{{product.info.short}}</p>
+    <p>{{product.info.long}}</p>
+    <h2 *ngIf="!product.discount; else discounted">
+      {{product.price}} RSD
+    </h2>
+    <ng-template #discounted>
+      <h2>
+        <s>{{product.price}} RSD</s><br>
+        {{product.price - product.discount}} RSD ({{(product.discount / product.price * 100).toFixed()}}%)
+      </h2>
+    </ng-template>
+    <button mat-stroked-button>
+      <i class="fas fa-cart-plus fa-fw"></i> Dodaj u korpu
+    </button>
+  </section>
+
+  <section class="table">
+    <table mat-table [dataSource]="product.tableFields">
+
+      <ng-container matColumnDef="a">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let el">{{el.left}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="b">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let el">{{el.right}}</td>
+      </ng-container>
+
+      <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </section>
+</div>
+<ng-template #notLoaded>
+  <div class="wrapper-not-loaded">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</ng-template>

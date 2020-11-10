@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>
+  Pretraga
+</h2>
+
+<mat-dialog-content>
+
+  <form id="searchForm" [formGroup]="form" (ngSubmit)="submit()">
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        Termin pretrage
+      </mat-label>
+      <input
+        matInput
+        type="text"
+        required
+        minLength="3"
+        maxLength="32"
+        formControlName="searchTerm">
+      <mat-error *ngIf="searchTerm.invalid && searchTerm.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+      <mat-error *ngIf="searchTerm.invalid && searchTerm.value">
+        Polje mora sadržati barem 3 znakova
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+  <div *ngIf="products.length">
+    <mat-nav-list>
+      <a
+        *ngFor="let product of products"
+        mat-list-item
+        [routerLink]="getProductLink(product)"
+        (click)="matDialogRef.close()">
+        <img [src]="product.media.heroImage" [alt]="product.name">
+        {{product.name}} ({{product.collection}})
+      </a>
+   </mat-nav-list>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>
+    Izlaz
+  </button>
+  <button
+    mat-button
+    color="accent"
+    type="submit"
+    form="searchForm"
+    [disabled]="form.invalid">
+    Pretraži
+  </button>
+</mat-dialog-actions>

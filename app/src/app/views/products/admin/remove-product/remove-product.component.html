@@ -1,0 +1,19 @@
+<h3 mat-dialog-title>
+  Potvrdite radnju
+</h3>
+
+<mat-dialog-content>
+  <p>
+    Jeste li sigurni da želite da uklonite ovaj proizvod?<br>
+    Ova radnja je nepovratna!
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>
+    Izlaz
+  </button>
+  <button mat-button color="warn" (click)="confirm()">
+    Ukloni
+  </button>
+</mat-dialog-actions>

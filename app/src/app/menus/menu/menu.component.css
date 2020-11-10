@@ -1,0 +1,9 @@
+mat-panel-title {
+  display: flex;
+  align-items: center;
+}
+
+.menu-name {
+  margin-left: var(--spacer-md);
+  font-variant: small-caps;
+}

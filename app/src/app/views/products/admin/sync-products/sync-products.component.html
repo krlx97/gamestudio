@@ -1,0 +1,48 @@
+<h3 mat-dialog-title>
+  Sinhronizacija
+</h3>
+
+<mat-dialog-content>
+
+  <form id="syncProductsForm" [formGroup]="form" (ngSubmit)="submit()">
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        B2B
+      </mat-label>
+      <mat-select formControlName="b2b">
+        <mat-option value="uspon">Uspon</mat-option>
+        <mat-option value="buygames">BuyGames</mat-option>
+      </mat-select>
+      <mat-error *ngIf="!b2b.value && b2b.touched">
+        Morate odabrati jednu opciju iz liste
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        URL svih proizvoda
+      </mat-label>
+      <input matInput type="text" required formControlName="productsUrl">
+      <mat-error *ngIf="!productsUrl.value && productsUrl.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>
+    Izlaz
+  </button>
+  <button
+    mat-button
+    color="accent"
+    type="submit"
+    form="syncProductsForm"
+    [disabled]="form.invalid">
+    Magija
+  </button>
+</mat-dialog-actions>

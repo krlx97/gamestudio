@@ -1,0 +1,53 @@
+<mat-card>
+
+  <img mat-card-image [src]="cartProduct.image" [alt]="cartProduct.name">
+
+  <mat-card-content>
+    <p>
+      {{cartProduct.name}} ({{cartProduct.qty}})<br>
+      {{cartProduct.collection}}
+    </p>
+    <p *ngIf="!cartProduct.discount; else discounted">
+      {{cartProduct.price | number}} RSD
+    </p>
+    <ng-template #discounted>
+      <p>
+        <i><s>{{cartProduct.price | number}} RSD</s></i><br>
+        <strong>{{discount | number}} RSD (-{{percent}}%)</strong>
+      </p>
+    </ng-template>
+    <h3>
+      {{totalPrice | number}} RSD
+    </h3>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      mat-icon-button
+      aria-label="Ukloni iz korpe"
+      matTooltip="Ukloni iz korpe"
+      [disabled]="isLoading"
+      (click)="removeFromCart()">
+      <i class="fas fa-trash fa-fw"></i>
+    </button>
+    <div>
+      <button
+        mat-icon-button
+        aria-label="Povećaj količinu"
+        matTooltip="Povećaj količinu"
+        [disabled]="isLoading"
+        (click)="increaseQty()">
+        <i class="fas fa-plus fa-fw"></i>
+      </button>
+      <button
+        mat-icon-button
+        aria-label="Smanji količinu"
+        matTooltip="Smanji količinu"
+        [disabled]="isLoading || cartProduct.qty <= 1"
+        (click)="decreaseQty()">
+        <i class="fas fa-minus fa-fw"></i>
+      </button>
+    </div>
+  </mat-card-actions>
+
+</mat-card>

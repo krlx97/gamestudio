@@ -1,0 +1,17 @@
+<mat-accordion>
+  <ng-container *ngIf="menuService.menus.length">
+    <app-menu
+      *ngFor="let menu of menuService.menus"
+      [menu]="menu"
+      [appSidenav]="appSidenav"
+      (editMenuEvt)="onEditMenu($event)"
+      (removeMenuEvt)="onRemoveMenu($event)">
+    </app-menu>
+  </ng-container>
+</mat-accordion>
+
+<div *ngIf="userService.isAdmin" class="add-button-wrapper">
+  <button mat-raised-button (click)="addMenu()">
+    <i class="fas fa-plus fa-fw"></i> Dodaj meni
+  </button>
+</div>

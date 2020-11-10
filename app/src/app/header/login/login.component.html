@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>
+  Prijava
+</h2>
+
+<mat-dialog-content>
+
+  <form id="loginForm" [formGroup]="form" (ngSubmit)="submit()">
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        E-mail adresa
+      </mat-label>
+      <input matInput type="email" required formControlName="email">
+      <mat-error *ngIf="!email.value && email.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+      <mat-error *ngIf="email.value && email.invalid">
+        Email mora biti validan
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        Lozinka
+      </mat-label>
+      <input
+        #passwordInput
+        matInput
+        type="password"
+        required
+        minlength="6"
+        maxlength="32"
+        formControlName="password">
+      <mat-icon
+        matSuffix
+        fontSet="fa"
+        [fontIcon]="passwordIcon"
+        (click)="showHidePassword()"></mat-icon>
+      <mat-error *ngIf="!password.value && password.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+      <mat-error *ngIf="password.value && password.invalid">
+        Polje mora sadržati najmanje 6 znakova
+      </mat-error>
+    </mat-form-field>
+
+    <div class="mat-checkbox-spacer">
+      <mat-checkbox formControlName="stayLoggedIn">
+        Ostani prijavljen
+      </mat-checkbox>
+    </div>
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>
+    Izlaz
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    type="submit"
+    form="loginForm"
+    [disabled]="form.invalid || !isLoaded">
+    <span *ngIf="isLoaded; else loading">Prijava</span>
+  </button>
+</mat-dialog-actions>
+
+<ng-template #loading>
+  <i class="fas fa-spinner fa-spin fa-fw"></i>
+</ng-template>

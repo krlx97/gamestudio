@@ -1,0 +1,131 @@
+<h2 mat-dialog-title>
+  Izmeni meni
+</h2>
+
+<mat-dialog-content>
+
+  <form id="editMenuForm" [formGroup]="form" (ngSubmit)="submit()">
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        Naziv
+      </mat-label>
+      <input matInput type="text" required formControlName="name">
+      <mat-error *ngIf="!name.value && name.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        Boja
+      </mat-label>
+      <input matInput type="color" required formControlName="color">
+      <mat-error *ngIf="!color.value && color.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>
+        FontAwesome ikonica
+      </mat-label>
+      <input matInput type="text" required formControlName="fontAwesome">
+      <mat-error *ngIf="!fontAwesome.value && fontAwesome.touched">
+        Polje ne sme biti prazno
+      </mat-error>
+    </mat-form-field>
+
+    <mat-accordion formArrayName="categories">
+
+      <mat-expansion-panel
+        *ngFor="let category of categories.controls; index as i"
+        [formGroupName]="i">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Kategorija {{i + 1}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="standard">
+          <mat-label>
+            Kategorija {{i + 1}}
+          </mat-label>
+          <input matInput type="text" required formControlName="name">
+          <mat-error *ngIf="
+            !category.controls.name.value &&
+            category.controls.name.touched
+          ">
+            Polje ne sme biti prazno
+          </mat-error>
+          <mat-icon
+            matSuffix
+            fontSet="fa"
+            fontIcon="fa-trash"
+            aria-label="Ukloni kategoriju"
+            matTooltip="Ukloni kategoriju"
+            (click)="removeCategory(i)"
+          ></mat-icon>
+        </mat-form-field>
+
+        <div formArrayName="collections">
+          <div
+            *ngFor="let collection of collections(i).controls; index as k"
+            [formGroupName]="k">
+
+            <mat-form-field appearance="standard">
+              <mat-label>
+                Kolekcija {{k + 1}}
+              </mat-label>
+              <input matInput type="text" required formControlName="name">
+              <mat-icon
+                matSuffix
+                fontSet="fa"
+                fontIcon="fa-trash"
+                aria-label="Ukloni kolekciju"
+                matTooltip="Ukloni kolekciju"
+                (click)="removeCollection(i, k)"></mat-icon>
+              <mat-error *ngIf="
+                !collection.controls.name.value &&
+                collection.controls.name.touched
+              ">
+                Polje ne sme biti prazno
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <mat-action-row align="end">
+          <button mat-button type="button" (click)="addCollection(i)">
+            Dodaj kolekciju
+          </button>
+        </mat-action-row>
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+    <br>
+
+    <button mat-button type="button" (click)="addCategory()">
+      Dodaj kategoriju
+    </button>
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>
+    Izlaz
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    type="submit"
+    form="editMenuForm"
+    [disabled]="form.invalid">
+    Izmeni
+  </button>
+</mat-dialog-actions>
